@@ -2,19 +2,20 @@ version: '2.2'
 
 services:
 
-  your_service:
-    # Please add your service here and serve it on port 5000.
+  image-conversion:
     build:
       dockerfile: Dockerfile
       context: .
     mem_limit: 512m
     mem_reservation: 512m
+    ports:
+      - "5000:80"
     depends_on:
       - jaeger
       - httpbin
 
   jaeger:
-    image: jaegertracing/all-in-one:latest
+    image: jaegertracing/all-in-one:1.29
     ports:
       - "6831:6831/udp"
       - "14268:14268/tcp"
