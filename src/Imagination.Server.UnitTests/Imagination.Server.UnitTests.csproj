@@ -25,4 +25,10 @@
     <ProjectReference Include="..\Imagination.Server\Imagination.Server.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Resources/**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
