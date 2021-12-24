@@ -3,22 +3,40 @@ using System.IO;
 using Xunit;
 using FluentAssertions;
 using System.Threading.Tasks;
+using System;
+using Imagination.Server.Exceptions;
 
 namespace Imagination.Server.UnitTests;
 
 public class ImageConversionServiceTests
 {
     private const string ResxPath = "../../../../../resources";
+    private readonly FileStreamOptions _openForReading = new()
+    {
+        Mode = FileMode.Open,
+        Access = FileAccess.Read,
+        Options = FileOptions.Asynchronous | FileOptions.SequentialScan
+    };
 
     [Fact]
     public void TestInvalidInput()
     {
-        // Act
-        var sut = new ImageConversionService();
-        Stream file = sut.Convert(null);
+        // Arrange
+        Exception? ex = null;
+
+        // Act        
+        try
+        {
+            new ImageConversionService().Convert(null);
+        }
+        catch(Exception e)
+        {
+            ex = e;            
+        }
 
         // Assert
-        file.Should().BeNull();
+        ex.Should().BeOfType<ArgumentNullException>();
+        ex.As<ArgumentNullException>().ParamName.Should().Be("inputStream");
     }
 
     [Theory]
@@ -33,13 +51,7 @@ public class ImageConversionServiceTests
     public async Task TestConversion2JPEG(string fileName)
     {
         // Arrange
-        var openForReading = new FileStreamOptions {
-            Mode = FileMode.Open,
-            Access = FileAccess.Read,
-            Options = FileOptions.Asynchronous | FileOptions.SequentialScan
-        };
-
-        await using var inputStream = new FileStream(fileName, openForReading);
+        await using var inputStream = new FileStream(fileName, _openForReading);
 
         // Act
         Stream outStream = new ImageConversionService().Convert(inputStream);
@@ -53,18 +65,20 @@ public class ImageConversionServiceTests
     public async Task TestFailedConversion2JPEG()
     {
         // Arrange
-        var openForReading = new FileStreamOptions {
-            Mode = FileMode.Open,
-            Access = FileAccess.Read,
-            Options = FileOptions.Asynchronous | FileOptions.SequentialScan
-        };
+        await using var inputStream = new FileStream($"{ResxPath}/invalid_jbento.png", _openForReading);
+        Exception? ex = null;
 
-        await using var inputStream = new FileStream($"{ResxPath}/invalid_jbento.png", openForReading);
-
-        // Act
-        Stream outStream = new ImageConversionService().Convert(inputStream);
+        // Act        
+        try
+        {
+            new ImageConversionService().Convert(inputStream);
+        }
+        catch(Exception e)
+        {
+            ex = e;            
+        }
 
         // Assert
-        outStream.Should().BeNull();
+        ex.Should().BeOfType<ImageConversionFailedException>();
     }
 }
