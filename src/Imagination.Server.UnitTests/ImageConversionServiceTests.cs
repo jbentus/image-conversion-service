@@ -29,6 +29,7 @@ public class ImageConversionServiceTests
     [InlineData($"{ResxPath}/small.jpg")]
     [InlineData($"{ResxPath}/small.png")]
     [InlineData($"{ResxPath}/transparent.png")]
+    [InlineData($"{ResxPath}/invalid.png")]
     public async Task TestConversion2JPEG(string fileName)
     {
         // Arrange
@@ -46,5 +47,24 @@ public class ImageConversionServiceTests
         // Assert
         outStream.Should().NotBeNull();
         outStream.Should().BeReadable();
+    }
+
+    [Fact]
+    public async Task TestFailedConversion2JPEG()
+    {
+        // Arrange
+        var openForReading = new FileStreamOptions {
+            Mode = FileMode.Open,
+            Access = FileAccess.Read,
+            Options = FileOptions.Asynchronous | FileOptions.SequentialScan
+        };
+
+        await using var inputStream = new FileStream($"{ResxPath}/invalid_jbento.png", openForReading);
+
+        // Act
+        Stream outStream = new ImageConversionService().Convert(inputStream);
+
+        // Assert
+        outStream.Should().BeNull();
     }
 }

@@ -9,6 +9,10 @@ namespace Imagination.Server.Services
         {
         }
 
+        /// <summary>
+        /// Convert a bitmap from a given Stream to the JPEG format.
+        /// </summary>
+        /// <returns> The converted bitmap, or null on error. </returns>
         public Stream Convert(Stream inputStream)
         {
             if (inputStream == null)
