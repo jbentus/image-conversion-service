@@ -11,6 +11,12 @@
       <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc7" />
       <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc7" />
       <PackageReference Include="SkiaSharp" Version="2.80.3" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
+
+    <PropertyGroup>
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
+      <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
 
 </Project>

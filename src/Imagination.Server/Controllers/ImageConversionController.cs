@@ -1,5 +1,6 @@
 using System.Threading;
 using Imagination.Server.ImageProcessors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +22,8 @@ namespace Imagination.Controllers
         /// <summary>
         /// Converts a bitmap into the JPEG format.
         /// </summary>
+        [ProducesResponseType(typeof(FileStreamResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("/convert")]
         public FileStreamResult Convert(CancellationToken cancelToken)
         {
