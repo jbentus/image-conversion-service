@@ -5,6 +5,7 @@ using FluentAssertions;
 using System.Threading.Tasks;
 using System;
 using Imagination.Server.Exceptions;
+using System.Threading;
 
 namespace Imagination.Server.UnitTests;
 
@@ -27,7 +28,8 @@ public class ImageConversionServiceTests
         // Act        
         try
         {
-            new ImageConversionService().Convert(null);
+            new ImageConversionService()
+                    .Convert(null, CancellationToken.None);
         }
         catch(Exception e)
         {
@@ -54,7 +56,8 @@ public class ImageConversionServiceTests
         await using var inputStream = new FileStream(fileName, _openForReading);
 
         // Act
-        Stream outStream = new ImageConversionService().Convert(inputStream);
+        Stream outStream = new ImageConversionService()
+                                .Convert(inputStream, CancellationToken.None);
 
         // Assert
         outStream.Should().NotBeNull();
@@ -71,7 +74,8 @@ public class ImageConversionServiceTests
         // Act        
         try
         {
-            new ImageConversionService().Convert(inputStream);
+            new ImageConversionService()
+                    .Convert(inputStream, CancellationToken.None);
         }
         catch(Exception e)
         {

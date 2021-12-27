@@ -1,5 +1,7 @@
+using Imagination.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +33,14 @@ namespace Imagination
                 .AddSource(Program.Telemetry.Name));
 
             services.AddControllers();
+
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                // Required by SkiaSharp library as it's reading the stream synchronously
+                options.AllowSynchronousIO = true;
+            });
+
+            services.AddTransient<IImageConversionService, ImageConversionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

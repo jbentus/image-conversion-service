@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using Imagination.Server.Exceptions;
 using SkiaSharp;
 
 namespace Imagination.Server.Services
 {
-    public class ImageConversionService
+    public class ImageConversionService : IImageConversionService
     {
         /// <summary>
         /// Convert a bitmap from a given Stream to the JPEG format.
@@ -17,7 +18,7 @@ namespace Imagination.Server.Services
         /// <exception cref="Imagination.Server.Exceptions.ImageConversionFailedException">
         /// Thrown when the input stream is invalid.
         /// </exception>
-        public Stream Convert(Stream inputStream)
+        public Stream Convert(Stream inputStream, CancellationToken cancelToken)
         {
             ArgumentNullException.ThrowIfNull(inputStream);
 
@@ -34,6 +35,9 @@ namespace Imagination.Server.Services
             {
                 throw new ImageConversionFailedException("Failed to encode the bitmap to JPEG format");
             }
+
+            // To force the Stream Writer to flush.
+            outStream.Position = 0;
 
             return outStream;
         }
