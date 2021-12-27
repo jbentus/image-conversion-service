@@ -1,4 +1,3 @@
-using Imagination.Server.Services;
 using System.IO;
 using Xunit;
 using FluentAssertions;
@@ -6,10 +5,11 @@ using System.Threading.Tasks;
 using System;
 using Imagination.Server.Exceptions;
 using System.Threading;
+using Imagination.Server.ImageProcessors;
 
 namespace Imagination.Server.UnitTests;
 
-public class ImageConversionServiceTests
+public class SkiaSharpProcessorTests
 {
     private const string ResxPath = "../../../../../resources";
     private readonly FileStreamOptions _openForReading = new()
@@ -28,7 +28,7 @@ public class ImageConversionServiceTests
         // Act        
         try
         {
-            new ImageConversionService()
+            new SkiaSharpProcessor()
                     .Convert(null, CancellationToken.None);
         }
         catch(Exception e)
@@ -56,7 +56,7 @@ public class ImageConversionServiceTests
         await using var inputStream = new FileStream(fileName, _openForReading);
 
         // Act
-        Stream outStream = new ImageConversionService()
+        Stream outStream = new SkiaSharpProcessor()
                                 .Convert(inputStream, CancellationToken.None);
 
         // Assert
@@ -74,7 +74,7 @@ public class ImageConversionServiceTests
         // Act        
         try
         {
-            new ImageConversionService()
+            new SkiaSharpProcessor()
                     .Convert(inputStream, CancellationToken.None);
         }
         catch(Exception e)

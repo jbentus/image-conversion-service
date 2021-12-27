@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagination", "tools\Imagination\Imagination.csproj", "{6D71023E-50A5-42CB-AE6C-AB00B6082838}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagination.Server.UnitTests", "src\Imagination.Server.UnitTests\Imagination.Server.UnitTests.csproj", "{1FCC7AEE-F544-47AA-8464-279957F93CA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagination.Server.UnitTests", "tests\Imagination.Server.UnitTests\Imagination.Server.UnitTests.csproj", "{1FCC7AEE-F544-47AA-8464-279957F93CA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

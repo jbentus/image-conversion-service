@@ -4,9 +4,9 @@ using System.Threading;
 using Imagination.Server.Exceptions;
 using SkiaSharp;
 
-namespace Imagination.Server.Services
+namespace Imagination.Server.ImageProcessors
 {
-    public class ImageConversionService : IImageConversionService
+    public class SkiaSharpProcessor : IImageProcessor
     {
         /// <summary>
         /// Convert a bitmap from a given Stream to the JPEG format.

@@ -1,5 +1,5 @@
 using System.Threading;
-using Imagination.Server.Services;
+using Imagination.Server.ImageProcessors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,13 +9,13 @@ namespace Imagination.Controllers
     public class ImageConversionController : ControllerBase
     {
         private readonly ILogger<ImageConversionController> _logger;
-        private readonly IImageConversionService _imgConvSvc;
+        private readonly IImageProcessor _imageProcessor;
 
         public ImageConversionController(ILogger<ImageConversionController> logger,
-            IImageConversionService imgConvSvc)
+            IImageProcessor imageProcessor)
         {
             _logger = logger;
-            _imgConvSvc = imgConvSvc;
+            _imageProcessor = imageProcessor;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Imagination.Controllers
         {
             _logger.LogInformation($"Received bitmap to convert, length: {Request.ContentLength}");
             
-            return new FileStreamResult(_imgConvSvc.Convert(Request.Body, cancelToken),
+            return new FileStreamResult(_imageProcessor.Convert(Request.Body, cancelToken),
                                         "image/jpeg");
         }
     }

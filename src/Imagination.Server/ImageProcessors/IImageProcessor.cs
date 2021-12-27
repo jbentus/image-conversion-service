@@ -1,9 +1,9 @@
 using System.IO;
 using System.Threading;
 
-namespace Imagination.Server.Services
+namespace Imagination.Server.ImageProcessors
 {
-    public interface IImageConversionService
+    public interface IImageProcessor
     {
         Stream Convert(Stream inputStream, CancellationToken cancelToken);
     }

@@ -1,4 +1,4 @@
-using Imagination.Server.Services;
+using Imagination.Server.ImageProcessors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -40,7 +40,7 @@ namespace Imagination
                 options.AllowSynchronousIO = true;
             });
 
-            services.AddTransient<IImageConversionService, ImageConversionService>();
+            services.AddTransient<IImageProcessor, SkiaSharpProcessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
