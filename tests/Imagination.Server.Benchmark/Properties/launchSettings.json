@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Imagination.Server.Benchmark": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
