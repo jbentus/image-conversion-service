@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagination", "tools\Imagin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imagination.Server.UnitTests", "tests\Imagination.Server.UnitTests\Imagination.Server.UnitTests.csproj", "{1FCC7AEE-F544-47AA-8464-279957F93CA2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F53A781C-6F72-4A64-AB01-16C397ADA836}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,7 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{AD4834EB-3273-46A8-90E9-73556A081336} = {102AD279-FD91-432C-8C31-54196901FDD2}
 		{6D71023E-50A5-42CB-AE6C-AB00B6082838} = {48F0B4D1-8C3C-4066-8522-B9A4D913A7C4}
-		{1FCC7AEE-F544-47AA-8464-279957F93CA2} = {102AD279-FD91-432C-8C31-54196901FDD2}
+		{1FCC7AEE-F544-47AA-8464-279957F93CA2} = {F53A781C-6F72-4A64-AB01-16C397ADA836}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC5C22FD-2FBD-4062-BD52-C15DFE3041D8}
