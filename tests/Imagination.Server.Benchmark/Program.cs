@@ -1,4 +1,4 @@
 ﻿global using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 
-BenchmarkRunner.Run<ImageProcessor>();
+BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);

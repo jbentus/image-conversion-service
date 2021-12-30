@@ -1,10 +1,12 @@
 {
   "profiles": {
     "Imagination.Server.Benchmark": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "--filter ImageProcessor"
     },
     "Docker": {
-      "commandName": "Docker"
+      "commandName": "Docker",
+      "commandLineArgs": "--filter ImageProcessor"
     }
   }
 }
