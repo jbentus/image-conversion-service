@@ -1,6 +1,4 @@
-﻿using Imagination.Server.ImageProcessors;
-
-[MemoryDiagnoser]
+﻿[MemoryDiagnoser]
 public class ImageProcessor
 {
     private const string ResxPath = "resources";

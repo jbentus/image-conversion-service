@@ -1,20 +1,8 @@
-﻿using Imagination.Server.Exceptions;
-using Imagination.Server.ImageProcessors;
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 
-public class ImageSharpProcessor : IImageProcessor
+public class ImageSharpProcessor
 {
-    /// <summary>
-    /// Convert a bitmap from a given Stream to the JPEG format.
-    /// </summary>
-    /// <returns> The converted bitmap in JPEG. </returns>
-    /// <exception cref="System.ArgumentNullException">
-    /// Thrown when <paramref name="inputStream"/> is null.
-    /// </exception>
-    /// <exception cref="Imagination.Server.Exceptions.ImageConversionFailedException">
-    /// Thrown when the input stream is invalid.
-    /// </exception>
     public Stream Convert(Stream inputStream, CancellationToken cancelToken)
     {
         ArgumentNullException.ThrowIfNull(inputStream);
@@ -28,6 +16,8 @@ public class ImageSharpProcessor : IImageProcessor
         {
             throw new ImageConversionFailedException(ex.Message);
         }
+
+        cancelToken.ThrowIfCancellationRequested();
 
         var outStream = new MemoryStream();
 
