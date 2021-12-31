@@ -1,13 +1,25 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Imagination.Server.Exceptions;
+using Microsoft.IO;
 using SkiaSharp;
 
 namespace Imagination.Server.ImageProcessors
 {
     public class SkiaSharpProcessor : IImageProcessor
     {
+        private const string FailedToDecodeMsg = "Failed to decode the bitmap";
+        private const string FailedToEncodeMsg = "Failed to encode the bitmap to JPEG format";
+
+        private readonly RecyclableMemoryStreamManager _streamManager;
+
+        public SkiaSharpProcessor(RecyclableMemoryStreamManager streamManager)
+        {
+            _streamManager = streamManager;
+        }
+
         /// <summary>
         /// Convert a bitmap from a given Stream to the JPEG format.
         /// </summary>
@@ -18,22 +30,39 @@ namespace Imagination.Server.ImageProcessors
         /// <exception cref="Imagination.Server.Exceptions.ImageConversionFailedException">
         /// Thrown when the input stream is invalid.
         /// </exception>
-        public Stream Convert(Stream inputStream, CancellationToken cancelToken)
+        public async Task<Stream> ConvertAsync(Stream inputStream, CancellationToken cancelToken)
         {
             ArgumentNullException.ThrowIfNull(inputStream);
 
-            SKBitmap bitmap = SKBitmap.Decode(inputStream);
+            SKBitmap bitmap;
+            
+            try
+            {
+                await using var memStream = _streamManager.GetStream();
+                await inputStream.CopyToAsync(memStream, cancelToken);
+                
+                // To force the Stream Writer to flush.
+                memStream.Position = 0;
+
+                bitmap = SKBitmap.Decode(memStream);
+            }
+            catch(ArgumentNullException)
+            {
+                throw new ImageConversionFailedException(FailedToDecodeMsg);
+            }
 
             if (bitmap == null)
             {
-                throw new ImageConversionFailedException("Failed to decode the bitmap using the specified stream");
+                throw new ImageConversionFailedException(FailedToDecodeMsg);
             }
 
-            var outStream = new MemoryStream();
+            cancelToken.ThrowIfCancellationRequested();
+
+            var outStream = _streamManager.GetStream();
 
             if (!bitmap.Encode(outStream, SKEncodedImageFormat.Jpeg, 80))
             {
-                throw new ImageConversionFailedException("Failed to encode the bitmap to JPEG format");
+                throw new ImageConversionFailedException(FailedToEncodeMsg);
             }
 
             // To force the Stream Writer to flush.

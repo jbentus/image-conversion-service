@@ -1,4 +1,6 @@
+using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Imagination.Server.ImageProcessors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +27,14 @@ namespace Imagination.Controllers
         [ProducesResponseType(typeof(FileStreamResult), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("/convert")]
-        public FileStreamResult Convert(CancellationToken cancelToken)
+        public async Task<FileStreamResult> Convert(CancellationToken cancelToken)
         {
-            _logger.LogInformation($"Received bitmap to convert, length: {Request.ContentLength}");
-            
-            return new FileStreamResult(_imageProcessor.Convert(Request.Body, cancelToken),
-                                        "image/jpeg");
+            _logger.LogInformation("Received bitmap to convert, length: {ContentLength}", Request.ContentLength);
+
+            Stream jpgStream = await _imageProcessor.ConvertAsync(Request.Body, cancelToken)
+                                                    .ConfigureAwait(false);
+
+            return new FileStreamResult(jpgStream, "image/jpeg");
         }
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.IO;
 
 namespace Imagination
 {
@@ -40,12 +41,6 @@ namespace Imagination
 
             services.AddControllers();
 
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                // Required by SkiaSharp library as it's reading the stream synchronously
-                options.AllowSynchronousIO = true;
-            });
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Nyris.Imagination.Server", Version = "v1" });
@@ -61,6 +56,8 @@ namespace Imagination
 
                 c.OperationFilter<ConvertOperation>();
             });
+
+            services.AddSingleton<RecyclableMemoryStreamManager>();
 
             services.AddTransient<IImageProcessor, SkiaSharpProcessor>();
         }

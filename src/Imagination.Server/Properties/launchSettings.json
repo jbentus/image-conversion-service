@@ -4,10 +4,10 @@
     "Imagination.Server": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
-      "launchBrowser": false,
+      "launchBrowser": true,
       "hotReloadProfile": "aspnetcore",
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "launchUrl": "",
+      "applicationUrl": "http://localhost:5000;https://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

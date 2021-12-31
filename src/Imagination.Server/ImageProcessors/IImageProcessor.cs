@@ -1,10 +1,11 @@
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Imagination.Server.ImageProcessors
 {
     public interface IImageProcessor
     {
-        Stream Convert(Stream inputStream, CancellationToken cancelToken);
+        Task<Stream> ConvertAsync(Stream inputStream, CancellationToken cancelToken);
     }
 }

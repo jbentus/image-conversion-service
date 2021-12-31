@@ -6,11 +6,14 @@ using System;
 using Imagination.Server.Exceptions;
 using System.Threading;
 using Imagination.Server.ImageProcessors;
+using Microsoft.IO;
 
 namespace Imagination.Server.UnitTests;
 
 public class SkiaSharpProcessorTests
 {
+    private static readonly RecyclableMemoryStreamManager _streamManager = new();
+
     private const string ResxPath = "../../../../../resources";
     private readonly FileStreamOptions _openForReading = new()
     {
@@ -20,7 +23,7 @@ public class SkiaSharpProcessorTests
     };
 
     [Fact]
-    public void TestInvalidInput()
+    public async Task TestInvalidInput()
     {
         // Arrange
         Exception? ex = null;
@@ -28,8 +31,8 @@ public class SkiaSharpProcessorTests
         // Act        
         try
         {
-            new SkiaSharpProcessor()
-                    .Convert(null, CancellationToken.None);
+            await new SkiaSharpProcessor(_streamManager)
+                        .ConvertAsync(null, CancellationToken.None);
         }
         catch(Exception e)
         {
@@ -54,10 +57,10 @@ public class SkiaSharpProcessorTests
     {
         // Arrange
         await using var inputStream = new FileStream(fileName, _openForReading);
+        var processor = new SkiaSharpProcessor(_streamManager);
 
         // Act
-        Stream outStream = new SkiaSharpProcessor()
-                                .Convert(inputStream, CancellationToken.None);
+        Stream outStream = await processor.ConvertAsync(inputStream, CancellationToken.None);
 
         // Assert
         outStream.Should().NotBeNull();
@@ -74,8 +77,8 @@ public class SkiaSharpProcessorTests
         // Act        
         try
         {
-            new SkiaSharpProcessor()
-                    .Convert(inputStream, CancellationToken.None);
+            await new SkiaSharpProcessor(_streamManager)
+                        .ConvertAsync(inputStream, CancellationToken.None);
         }
         catch(Exception e)
         {
