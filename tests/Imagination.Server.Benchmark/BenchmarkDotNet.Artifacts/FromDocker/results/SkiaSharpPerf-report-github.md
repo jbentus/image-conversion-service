@@ -8,8 +8,8 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 
 
 ```
-|                           Method |  FileName |     Mean |    Error |   StdDev |   Median | Ratio | RatioSD |   Gen 0 | Gen 1 | Gen 2 | Allocated |
-|--------------------------------- |---------- |---------:|---------:|---------:|---------:|------:|--------:|--------:|------:|------:|----------:|
-|                   SkiaSharpAsync | jfif.jfif | 12.96 ms | 0.332 ms | 0.979 ms | 13.07 ms |  1.00 |    0.00 | 31.2500 |     - |     - | 207.85 KB |
-|         SkiaSharpAsyncMemoryPool | jfif.jfif | 12.77 ms | 0.339 ms | 1.000 ms | 12.47 ms |  0.99 |    0.10 | 15.6250 |     - |     - | 128.72 KB |
-| SkiaSharpAsyncMemAndStreamPooled | jfif.jfif | 12.02 ms | 0.229 ms | 0.290 ms | 11.96 ms |  0.90 |    0.08 |       - |     - |     - |   1.72 KB |
+|                              Method |  FileName |     Mean |    Error |   StdDev |   Median | Ratio | RatioSD |   Gen 0 | Gen 1 | Gen 2 | Allocated |
+|------------------------------------ |---------- |---------:|---------:|---------:|---------:|------:|--------:|--------:|------:|------:|----------:|
+|                      SkiaSharpAsync | jfif.jfif | 13.34 ms | 0.363 ms | 1.070 ms | 13.06 ms |  1.00 |    0.00 | 31.2500 |     - |     - | 207.85 KB |
+|            SkiaSharpAsyncMemoryPool | jfif.jfif | 13.90 ms | 0.363 ms | 1.049 ms | 13.90 ms |  1.05 |    0.11 | 15.6250 |     - |     - | 128.72 KB |
+| SkiaSharpAsyncRecycableMemoryStream | jfif.jfif | 14.07 ms | 0.394 ms | 1.155 ms | 13.76 ms |  1.06 |    0.12 |       - |     - |     - |   3.76 KB |

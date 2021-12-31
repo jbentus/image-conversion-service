@@ -33,11 +33,11 @@ public class SkiaSharpPerf
     }
 
     [Benchmark]
-    public async Task<Stream> SkiaSharpAsyncMemAndStreamPooled()
+    public async Task<Stream> SkiaSharpAsyncRecycableMemoryStream()
     {
         var path = Path.Combine(PathInfo.SolutionPath, ResxPath, FileName);
 
         using var inputStream = new FileStream(path, _openForReading);
-        return await _skiaSharp.ConvertAsyncMemAndStreamPooled(inputStream, CancellationToken.None);
+        return await _skiaSharp.ConvertAsyncRecycableMemoryStream(inputStream, CancellationToken.None);
     }
 }

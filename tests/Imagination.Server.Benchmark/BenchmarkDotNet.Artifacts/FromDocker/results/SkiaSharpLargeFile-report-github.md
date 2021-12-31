@@ -8,7 +8,7 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 
 
 ```
-|                           Method | FileName |    Mean |    Error |   StdDev | Ratio | RatioSD | Gen 0 | Gen 1 | Gen 2 |   Allocated |
-|--------------------------------- |--------- |--------:|---------:|---------:|------:|--------:|------:|------:|------:|------------:|
-|         SkiaSharpAsyncMemoryPool |  big.jpg | 2.132 s | 0.0660 s | 0.1947 s |  1.00 |    0.00 |     - |     - |     - | 32769.97 KB |
-| SkiaSharpAsyncMemAndStreamPooled |  big.jpg | 2.124 s | 0.0573 s | 0.1690 s |  1.00 |    0.12 |     - |     - |     - |    69.19 KB |
+|                              Method | FileName |    Mean |    Error |   StdDev |  Median | Ratio | RatioSD | Gen 0 | Gen 1 | Gen 2 |   Allocated |
+|------------------------------------ |--------- |--------:|---------:|---------:|--------:|------:|--------:|------:|------:|------:|------------:|
+|            SkiaSharpAsyncMemoryPool |  big.jpg | 2.165 s | 0.0717 s | 0.2115 s | 2.122 s |  1.00 |    0.00 |     - |     - |     - | 32769.97 KB |
+| SkiaSharpAsyncRecycableMemoryStream |  big.jpg | 2.165 s | 0.0652 s | 0.1923 s | 2.094 s |  1.01 |    0.13 |     - |     - |     - |    99.46 KB |
