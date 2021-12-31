@@ -35,6 +35,3 @@ namespace Imagination.Swagger
         }
     }    
 }
-
-// c.MapType<FileStreamResult>(() => new OpenApiSchema { 
-//                     Type = "string", Format = "binary", Default = new OpenApiString(""), Description = "binary" });

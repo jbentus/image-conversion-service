@@ -63,3 +63,7 @@ For testing, you can point it to a different directory using the `--TestFiles:Ba
 
 The responses from your service are not automatically evaluated by the tool. You _may choose_ to
 add extra logic to it, that is - however - not required. If you do, please add a note.
+
+## Notes
+- I've added an additional file for testing purposes named `invalid_jbento.png` under the `resources` folder.
+- While adding Swagger support I also made file upload possible through the UI.
